@@ -8,6 +8,6 @@ setwd("~/Columbia MSBA/Spring 2019/E4650 - Business Analytics/Project - Kickstar
 
 filenames = list.files(full.names=TRUE)
 df = do.call("rbind", lapply(filenames, read.csv, header=TRUE))
-write.csv(df, file="~/Columbia MSBA/Spring 2019/E4650 - Business Analytics/Project - Kickstarter Analysis/df.csv",
+write.csv(df, file="~/Columbia MSBA/Spring 2019/E4650 - Business Analytics/Project - Kickstarter Analysis/df_kickstarter.csv",
           row.names=FALSE, 
           na='')
