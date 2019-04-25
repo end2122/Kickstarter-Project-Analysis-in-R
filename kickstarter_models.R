@@ -9,6 +9,11 @@ length(df)
 library("glmnet")
 library("leaps")
 library("caret")
+library("xlsx")
+library("plyr")
+library("tree")
+library("ISLR")
+library("pls")
 
 ################### Model Setups #############################
 x = as.matrix(df[,-9])
@@ -53,6 +58,8 @@ lasso.log.error
 
 ### K-Means ###
 
+
+################### SVM Model #############################
 
 
 
