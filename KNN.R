@@ -18,7 +18,7 @@ val_test_ind=sample(nrow(val_test),0.5*nrow(val_test))
 val=val_test[val_test_ind,1:ncol(val_test)]
 test=val_test[-val_test_ind,1:ncol(val_test)]
 
-k.vec = 1:100
+k.vec = 1:20
 err.mat.knn = array(NA,dim=c(length(k.vec))) 
 for(i in k.vec){
   knn.pred= knn.reg(train=train[,-8],test=val[,-8],y=train[,8],k=i)
@@ -31,10 +31,13 @@ knn.pred= knn.reg(train=train_val[,-8],test=test[,-8],y=train_val[,8],k=bestK)
 mean((knn.pred$pred-test[,8])^2)
 
 gain=(test$goal>test$usd_pledged) & (knn.pred$pred<test$usd_pledged)
-gain_sum=sum(knn.pred$pred[gain]) 
-loss=(test$goal<test$usd_pledged) & (knn.pred$pred>test$usd_pledged)
-loss_sum=sum(test$usd_pledged[loss])
-gain_sum-loss_sum #5640.449
+gain_sum=sum(knn.pred$pred[gain])*1.064
+loss_1=(test$goal<test$usd_pledged) & (knn.pred$pred>test$usd_pledged)
+loss_sum_1=sum(test$usd_pledged[loss_1])
+loss_2=(test$goal<test$usd_pledged) & (knn.pred$pred<test$usd_pledged)
+loss_sum_2=(sum(test$usd_pledged[loss_2]-knn.pred$pred[loss_2]*1.064))
+
+gain_sum-loss_sum_1-loss_sum_2 #-14845.45
 best_gain=test$goal>test$usd_pledged
 sum(test$usd_pledged[best_gain])#85000.98
 
